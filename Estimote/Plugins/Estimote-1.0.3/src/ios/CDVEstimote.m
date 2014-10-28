@@ -20,6 +20,9 @@
     [self startRangingBeacons];
 }
 
+// Commented most of these lines because they don't compile against Estimote SDK 2.1.0.
+// We need that version because it's the last XCode 5 iOS 7 SDK built version.
+// TODO Uncomment these lines when we build with XCode 6 / iOS 8 SDK and update the Estimote SDK from https://github.com/Estimote/iOS-SDK/releases
 -(void)startRangingBeacons
 {
 //    if ([ESTBeaconManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)
@@ -86,6 +89,7 @@
                     [mutableDictionary setObject:beacon.name forKey:@"name"];
                 [mutableDictionary setObject:beacon.distance forKey:@"distance"];
                 [mutableDictionary setObject:@(beacon.rssi) forKey:@"rssi"];
+                // TODO Uncomment when we use a newer release of the Estimote SDK
 //                if (beacon.remainingLifetime)
 //                    [mutableDictionary setObject:beacon.remainingLifetime forKey:@"remainingLifetime"];
                 [mutableDictionary setObject:beacon.proximityUUID.UUIDString forKey:@"proximityUUID"];

@@ -17,7 +17,7 @@ Estimote.prototype._notification = function(info) {
 };
 
 Estimote.prototype._error = function(e) {
-  alert("Error receiving message: " + e);
+  console.log("Error receiving message: " + e);
 };
 
 var estimote = new Estimote();
