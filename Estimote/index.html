@@ -48,13 +48,18 @@
         data-model="app.demoService.viewModel">
 
         <div class="demo">
-            <h3 class="hassubtitle">TODO ..</h3>
+            <h3 class="hassubtitle">Listen for Beacons</h3>
             <div class="subtitle">
-                ..
+                Press the buttons below to start or stop listening for Beacons.
             </div>
             <div class="buttons">
-                <button data-role="button" class="button" data-bind="click: disablePinning">TODO</button>
+                <button data-role="button" class="button" data-bind="click: start">Start</button>
+                <button data-role="button" class="button" data-bind="click: stop">Stop</button>
             </div>
+            <div id="beaconlog" style="text-align: left; font: 8px Verdana; font-style: normal; margin-left: 5%; width:90%; padding: 2px; height: 140px; border: 1px solid black; overflow: auto">
+                if beacons come in range, we will log their raw data here..
+            </div>
+
         </div>
         
     </div>

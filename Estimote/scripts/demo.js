@@ -1,73 +1,24 @@
+function onBeaconsReceived(msg) {
+    document.getElementById('beaconlog').innerHTML = JSON.stringify(msg, null, "\t");
+}
+
+document.addEventListener('beaconsReceived', onBeaconsReceived, false);
+
 (function (global) {
     var DemoViewModel,
         app = global.app = global.app || {};
 
     DemoViewModel = kendo.data.ObservableObject.extend({
 
-        enablePinning: function () {
+        start: function () {
             if (!this.checkSimulator()) {
-                window.cordovaHTTP.enableSSLPinning(
-                    true,
-                    function (msg) {alert("SUCCESS, you can now talk only to trusted endpoints (on iOS this may take a few seconds to take effect)")},
-                    function (msg) {alert("ERROR: "   + msg)}
-                );
+                window.estimote.startListening("Telerik");
             }
         },
 
-        disablePinning: function () {
+        stop: function () {
             if (!this.checkSimulator()) {
-                window.cordovaHTTP.enableSSLPinning(
-                    false,
-                    function (msg) {alert("SUCCESS: you can now talk to any endpoint")},
-                    function (msg) {alert("ERROR: "   + msg)}
-                );
-            }
-        },
-
-        doTrustedGET: function () {
-            if (!this.checkSimulator()) {
-                window.cordovaHTTP.get(
-                    "https://cordova.apache.org", // we have a .cer file for this in www/certificates
-                    {}, // optional params
-                    {}, // optional headers
-                    function(msg) {alert("OK: " + msg)},
-                    function(msg) {alert("ERROR: " + msg)}
-                )
-            }
-        },
-
-        doUntrustedGET: function () {
-            if (!this.checkSimulator()) {
-                window.cordovaHTTP.get(
-                    "https://www.github.com", // we don't have a .cer file for this
-                    {}, // optional params
-                    {}, // optional headers
-                    function(msg) {alert("OK: " + msg)},
-                    function(msg) {alert("ERROR: " + msg)}
-                )
-            }
-        },
-
-        setBasicAuthCredentials: function () {
-            if (!this.checkSimulator()) {
-                window.cordovaHTTP.useBasicAuth(
-                    "user",
-                    "passwd",
-                    function(msg) {alert("OK, basic auth headers set: " + msg)},
-                    function(msg) {alert("ERROR: " + msg)}
-                )
-            }
-        },
-        
-        requestBasicAuthProtectedResource: function () {
-            if (!this.checkSimulator()) {
-                window.cordovaHTTP.get(
-                    "http://httpbin.org/basic-auth/user/passwd",
-                    {}, // optional params
-                    {}, // optional headers
-                    function(msg) {alert("OK, basic auth resource responded: " + msg)},
-                    function(msg) {alert("ERROR, now press the 'Set global basic auth header' and test again")}
-                )
+                window.estimote.stopListening();
             }
         },
 

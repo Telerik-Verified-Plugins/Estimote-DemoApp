@@ -38,6 +38,7 @@
 
 		<config-file target="*-Info.plist" parent="UIBackgroundModes">
 			<array>
+				<string>audio</string>
 				<string>bluetooth-central</string>
 				<string>bluetooth-peripheral</string>
 				<string>external-accessory</string>
