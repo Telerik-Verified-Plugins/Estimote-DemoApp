@@ -1,7 +1,25 @@
-function onBeaconsReceived(msg) {
-    document.getElementById('beaconlog').innerHTML = JSON.stringify(msg, null, "\t");
+// define a beacon callback function
+function onBeaconsReceived(result) {
+    if (result.beacons && result.beacons.length > 0) {
+        var msg = "Beacons found: " + result.beacons.length + "<br/>";
+        for (var i=0; i<result.beacons.length; i++) {
+            var beacon = result.beacons[i];
+            msg += "<br/>";
+            if (beacon.color !== undefined) {
+                msg += "Color: " + beacon.color + "<br/>";
+            }
+            if (beacon.macAddress !== undefined) {
+                msg += "Mac Address: " + beacon.macAddress + "<br/>";
+            }
+            msg += "Distance: " + beacon.distance + " m<br/>";
+            msg += "Major / Minor: " + beacon.major + " / " + beacon.minor + "<br/>";
+            msg += "Rssi: " + beacon.rssi + "<br/>";
+        }
+        document.getElementById('beaconlog').innerHTML = msg;
+    }
 }
 
+// wiring the fired event of the plugin to the callback function
 document.addEventListener('beaconsReceived', onBeaconsReceived, false);
 
 (function (global) {
@@ -12,13 +30,13 @@ document.addEventListener('beaconsReceived', onBeaconsReceived, false);
 
         start: function () {
             if (!this.checkSimulator()) {
-                window.estimote.startListening("Telerik");
+                window.estimote.startRanging("Telerik");
             }
         },
 
         stop: function () {
             if (!this.checkSimulator()) {
-                window.estimote.stopListening();
+                window.estimote.stopRanging();
             }
         },
 

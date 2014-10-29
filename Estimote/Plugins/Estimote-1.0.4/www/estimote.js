@@ -4,12 +4,12 @@ var exec = require('cordova/exec');
 function Estimote(){
 }
 
-Estimote.prototype.startListening = function(arg) {
-  exec(estimote._notification, estimote._error, "Estimote", "startListening", [encodeURIComponent(arg)]);
+Estimote.prototype.startRanging = function(arg) {
+  exec(estimote._notification, estimote._error, "Estimote", "startRanging", [encodeURIComponent(arg)]);
 };
 
-Estimote.prototype.stopListening = function() {
-  exec(null, null, "Estimote", "stopListening", []);
+Estimote.prototype.stopRanging = function() {
+  exec(null, null, "Estimote", "stopRanging", []);
 };
 
 Estimote.prototype._notification = function(info) {

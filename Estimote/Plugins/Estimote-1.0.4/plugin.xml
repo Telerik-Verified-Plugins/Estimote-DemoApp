@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="com.estimote.sdk" version="1.0.3" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="com.estimote.sdk" version="1.0.4" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
 	<name>Estimote</name>
 	<description>Estimote - Context for your apps</description>
 
@@ -38,7 +38,6 @@
 
 		<config-file target="*-Info.plist" parent="UIBackgroundModes">
 			<array>
-				<string>audio</string>
 				<string>bluetooth-central</string>
 				<string>bluetooth-peripheral</string>
 				<string>external-accessory</string>
@@ -54,4 +53,31 @@
 		</config-file>
 
 	</platform>
+
+
+  <platform name="android">
+
+      <config-file target="res/xml/config.xml" parent="/*">
+          <feature name="Estimote">
+              <param name="android-package" value="com.estimote.sdk.EstimotePlugin" />
+          </feature>
+      </config-file>
+
+      <config-file target="AndroidManifest.xml" parent="/manifest">
+          <uses-permission android:name="android.permission.BLUETOOTH" />
+          <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+      </config-file>
+
+      <config-file target="AndroidManifest.xml" parent="/manifest/application">
+          <service android:name="com.estimote.sdk.service.BeaconService" android:exported="false" />
+      </config-file>
+
+      <source-file src="src/android/EstimotePlugin.java" target-dir="src/com/estimote/sdk" />
+      <source-file src="src/android/BluetoothError.java" target-dir="src/com/estimote/sdk" />
+
+      <source-file src="lib/android/EstimoteSDK/estimote-sdk-preview.jar" target-dir="libs" />
+
+  </platform>
+
+
 </plugin>

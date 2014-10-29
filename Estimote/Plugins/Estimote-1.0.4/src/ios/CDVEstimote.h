@@ -11,8 +11,8 @@
 
 @property (strong) NSString* callbackId;
 
-- (void)startListening:(CDVInvokedUrlCommand*)command;
-- (void)stopListening:(CDVInvokedUrlCommand*)command;
+- (void)startRanging:(CDVInvokedUrlCommand*)command;
+- (void)stopRanging:(CDVInvokedUrlCommand*)command;
 
 
 @end

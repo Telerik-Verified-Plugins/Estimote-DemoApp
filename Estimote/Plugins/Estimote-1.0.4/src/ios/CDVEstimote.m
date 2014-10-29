@@ -5,7 +5,7 @@
 
 @implementation CDVEstimote
 
-- (void)startListening:(CDVInvokedUrlCommand*)command
+- (void)startRanging:(CDVInvokedUrlCommand*)command
 {
     NSString *regionName = [command.arguments objectAtIndex:0];
 
@@ -25,37 +25,36 @@
 // TODO Uncomment these lines when we build with XCode 6 / iOS 8 SDK and update the Estimote SDK from https://github.com/Estimote/iOS-SDK/releases
 -(void)startRangingBeacons
 {
-//    if ([ESTBeaconManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)
-//    {
-//        if (floor(NSFoundationVersionNumber) <= 1047.25) { // NSFoundationVersionNumber_iOS_7_1
-            /*
-             * No need to explicitly request permission in iOS < 8, will happen automatically when starting ranging.
-             */
-            [self.beaconManager startRangingBeaconsInRegion:self.region];
-//        } else {
-            /*
-             * Request permission to use Location Services. (new in iOS 8)
-             * We ask for "always" authorization so that the Notification Demo can benefit as well.
-             * Also requires NSLocationAlwaysUsageDescription in Info.plist file.
-             *
-             * For more details about the new Location Services authorization model refer to:
-             * https://community.estimote.com/hc/en-us/articles/203393036-Estimote-SDK-and-iOS-8-Location-Services
-             */
-//            [self.beaconManager requestAlwaysAuthorization];
-//        }
-//    }
-//    else if([ESTBeaconManager authorizationStatus] == kCLAuthorizationStatusAuthorized)
-//    {
-//        [self.beaconManager startRangingBeaconsInRegion:self.region];
-//    }
-//    else if([ESTBeaconManager authorizationStatus] == kCLAuthorizationStatusDenied)
-//    {
-//    }
-//    else if([ESTBeaconManager authorizationStatus] == kCLAuthorizationStatusRestricted){
-//
-//    }
+    //    if ([ESTBeaconManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)
+    //    {
+    //        if (floor(NSFoundationVersionNumber) <= 1047.25) { // NSFoundationVersionNumber_iOS_7_1
+    /*
+     * No need to explicitly request permission in iOS < 8, will happen automatically when starting ranging.
+     */
+    [self.beaconManager startRangingBeaconsInRegion:self.region];
+    //        } else {
+    /*
+     * Request permission to use Location Services. (new in iOS 8)
+     * We ask for "always" authorization so that the Notification Demo can benefit as well.
+     * Also requires NSLocationAlwaysUsageDescription in Info.plist file.
+     *
+     * For more details about the new Location Services authorization model refer to:
+     * https://community.estimote.com/hc/en-us/articles/203393036-Estimote-SDK-and-iOS-8-Location-Services
+     */
+    //            [self.beaconManager requestAlwaysAuthorization];
+    //        }
+    //    }
+    //    else if([ESTBeaconManager authorizationStatus] == kCLAuthorizationStatusAuthorized)
+    //    {
+    //        [self.beaconManager startRangingBeaconsInRegion:self.region];
+    //    }
+    //    else if([ESTBeaconManager authorizationStatus] == kCLAuthorizationStatusDenied)
+    //    {
+    //    }
+    //    else if([ESTBeaconManager authorizationStatus] == kCLAuthorizationStatusRestricted){
+    //
+    //    }
 }
-
 - (void)beaconManager:(ESTBeaconManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
     [self startRangingBeacons];
@@ -84,19 +83,19 @@
                     [mutableDictionary setObject:beacon.power forKey:@"power"];
                 [mutableDictionary setObject:@(beacon.color) forKey:@"colorId"];
                 [mutableDictionary setObject:[self getBeaconColorName:beacon.color] forKey:@"color"];
-              
+
                 if (beacon.name)
                     [mutableDictionary setObject:beacon.name forKey:@"name"];
-                [mutableDictionary setObject:beacon.distance forKey:@"distance"];
-                [mutableDictionary setObject:@(beacon.rssi) forKey:@"rssi"];
-                // TODO Uncomment when we use a newer release of the Estimote SDK
-//                if (beacon.remainingLifetime)
-//                    [mutableDictionary setObject:beacon.remainingLifetime forKey:@"remainingLifetime"];
-                [mutableDictionary setObject:beacon.proximityUUID.UUIDString forKey:@"proximityUUID"];
-
-                [mutableDictionary setObject:@(beacon.proximity) forKey:@"proximity"];
-                [mutableDictionary setObject:@(beacon.isMoving) forKey:@"isMoving"];
-
+                if (beacon.rssi)
+                    [mutableDictionary setObject:@(beacon.rssi) forKey:@"rssi"];
+                if (beacon.proximityUUID)
+                    [mutableDictionary setObject:beacon.proximityUUID.UUIDString forKey:@"proximityUUID"];
+                if (beacon.distance)
+                  [mutableDictionary setObject:beacon.distance forKey:@"distance"];
+                if (beacon.proximity)
+                    [mutableDictionary setObject:@(beacon.proximity) forKey:@"proximity"];
+                if (beacon.isMoving)
+                    [mutableDictionary setObject:@(beacon.isMoving) forKey:@"isMoving"];
                 if (beacon.batteryLevel)
                   [mutableDictionary setObject:beacon.batteryLevel forKey:@"batteryLevel"];
 
@@ -108,7 +107,7 @@
             NSDictionary *data = [NSDictionary dictionaryWithObject:mutableArray forKey:@"beacons"];
 
             CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:data];
-          
+
             [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
 
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -131,7 +130,7 @@
   return [colors objectForKey:@(color)];
 }
 
-- (void)stopListening:(CDVInvokedUrlCommand*)command
+- (void)stopRanging:(CDVInvokedUrlCommand*)command
 {
     [self.beaconManager stopRangingBeaconsInRegion:self.region];
 }

@@ -54,6 +54,13 @@ Once done I can subscribe to the document event as shown below and as I have dev
 
     document.addEventListener('beaconsReceived', this.onBeaconsReceived, false);
 
+    // Moving forward.
+    onBeconsReceived: function(e){
+        for(var index = 0; index< e.beacons.length; index++){
+          // TODO: You app specific logic.
+        }
+    }
+
 
 # estimote.stopListening
 
@@ -67,6 +74,7 @@ The method stops the tracking of any further beacons send by estimote devices.
 ## Supported Platforms
 
 - iOS
+- Android
 
 ## Resources
 
