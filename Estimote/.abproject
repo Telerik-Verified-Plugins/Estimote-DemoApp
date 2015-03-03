@@ -17,10 +17,10 @@
   "WP8Publisher": "",
   "WP8Capabilities": [],
   "WP8Requirements": [],
-  "WP8PublisherID": "",
-  "WP8ProductID": "",
+  "WP8PublisherID": "{8d9b6a5b-343b-447b-8f92-c5a9df281543}",
+  "WP8ProductID": "{da061eb3-cd69-4753-8eaf-e8e4611c1d82}",
   "ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
-  "FrameworkVersion": "3.5.0",
+  "FrameworkVersion": "3.7.0",
   "CorePlugins": [
     "org.apache.cordova.console",
     "org.apache.cordova.device",
