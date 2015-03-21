@@ -34,17 +34,8 @@
 		<header-file src="lib/ios/EstimoteSDK/Headers/ESTBeacon.h"/>
 		<header-file src="lib/ios/EstimoteSDK/Headers/ESTDefinitions.h"/>
 		
-
 		<header-file src="src/ios/CDVEstimote.h" />
 		<source-file src="src/ios/CDVEstimote.m" />
-
-		<config-file target="*-Info.plist" parent="UIBackgroundModes">
-			<array>
-				<string>bluetooth-central</string>
-				<string>bluetooth-peripheral</string>
-				<string>external-accessory</string>
-			</array>
-		</config-file>
 
 		<config-file target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
 			<string>This application uses your location to determine which table you're at when ordering your coffee.</string>
