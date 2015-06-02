@@ -22,7 +22,6 @@
   "ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
   "FrameworkVersion": "3.7.0",
   "CorePlugins": [
-    "com.estimote.sdk@1.0.7",
     "org.apache.cordova.console",
     "org.apache.cordova.device",
     "org.apache.cordova.dialogs",
@@ -46,5 +45,6 @@
   "Framework": "Cordova",
   "WP8WindowsPublisherName": "CN=Telerik",
   "WP8PackageIdentityName": "1234Telerik.com.telerik.plugindemo.estimote",
-  "WPSdk": "8.0"
+  "WPSdk": "8.0",
+  "CordovaPluginVariables": {}
 }
