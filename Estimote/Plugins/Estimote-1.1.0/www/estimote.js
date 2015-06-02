@@ -5,7 +5,16 @@ function Estimote(){
 }
 
 Estimote.prototype.startRanging = function(arg) {
-  exec(estimote._notification, estimote._error, "Estimote", "startRanging", [encodeURIComponent(arg)]);
+  var options = {};
+
+  // added for backward compatibility
+  if (typeof arg == "object") {
+    options = arg;
+  } else if (typeof arg == "string") {
+    options.region = arg;
+  }
+
+  exec(estimote._notification, estimote._error, "Estimote", "startRanging", [options]);
 };
 
 Estimote.prototype.stopRanging = function() {

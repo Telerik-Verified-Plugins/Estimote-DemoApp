@@ -30,6 +30,7 @@ document.addEventListener('beaconsReceived', onBeaconsReceived, false);
 
         start: function () {
             if (!this.checkSimulator()) {
+              	// note that you can also pass in a UUID, see the Verified Plugins Marketplace doc
                 window.estimote.startRanging("Telerik");
             }
         },

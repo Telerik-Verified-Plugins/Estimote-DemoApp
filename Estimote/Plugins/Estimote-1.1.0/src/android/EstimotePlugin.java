@@ -15,6 +15,9 @@ public class EstimotePlugin extends CordovaPlugin {
 
   private static final String ESTIMOTE_PROXIMITY_UUID = "B9407F30-F5F8-466E-AFF9-25556B57FE6D";
 
+  private static final String ESTIMOTE_PLUGIN_PARAM_REGION = "region";
+  private static final String ESTIMOTE_PLUGIN_PARAM_UUID = "uuid";
+
   private Region region;
 
   private static final String LOG_TAG = "EstimotePlugin";
@@ -40,7 +43,12 @@ public class EstimotePlugin extends CordovaPlugin {
   }
 
   private void startRanging(JSONArray args, final CallbackContext callbackCtx) throws JSONException {
-    region = new Region(args.getString(0), ESTIMOTE_PROXIMITY_UUID, null, null);
+    JSONObject options = args.getJSONObject(0);
+    region = new Region(
+        options.getString(ESTIMOTE_PLUGIN_PARAM_REGION),
+        options.has(ESTIMOTE_PLUGIN_PARAM_UUID) ? options.getString(ESTIMOTE_PLUGIN_PARAM_UUID) : ESTIMOTE_PROXIMITY_UUID,
+        null,
+        null);
 
     Log.d(LOG_TAG, "startRanging-method called");
 

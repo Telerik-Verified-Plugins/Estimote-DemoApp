@@ -3,18 +3,34 @@
 #import <CoreLocation/CoreLocation.h>
 #import "ESTBeacon.h"
 
+static NSString *const EstimotePluginParam_Region = @"region";
+static NSString *const EstimotePluginParam_UUID = @"uuid";
+
 @implementation CDVEstimote
 
 - (void)startRanging:(CDVInvokedUrlCommand*)command
 {
-    NSString *regionName = [command.arguments objectAtIndex:0];
+    NSMutableDictionary *args = [command.arguments objectAtIndex:0];
+    NSString *regionName = [args objectForKey:EstimotePluginParam_Region];
+    NSString *uuid = [args objectForKey:EstimotePluginParam_UUID];
 
+    NSUUID *initWithUUID;
+    if (uuid == nil) {
+        initWithUUID = ESTIMOTE_PROXIMITY_UUID;
+    } else {
+        initWithUUID = [[NSUUID alloc] initWithUUIDString:uuid];
+        if (initWithUUID == nil) {
+            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"invalid uuid"];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+            return;
+        }
+    }
+  
     self.beaconManager = [[ESTBeaconManager alloc] init];
     self.beaconManager.delegate = self;
     self.beaconManager.avoidUnknownStateBeacons = YES;
 
-    self.region = [[ESTBeaconRegion alloc] initWithProximityUUID:ESTIMOTE_PROXIMITY_UUID identifier:regionName];
-
+    self.region = [[ESTBeaconRegion alloc] initWithProximityUUID:initWithUUID identifier:regionName];
     self.callbackId = command.callbackId;
 
     [self startRangingBeacons];

@@ -19,7 +19,7 @@
 
 # com.estimote.sdk
 
-Estimote Beacon is a super small device. It has a powerful 32-bit ARM® Cortex M0 CPU with 256kB flash memory, accelerometer, temperature sensor and most importantly – a 2.4 GHz Bluetooth 4.0 Smart (also known as BLE or Bluetooth low energy) bidirectional radio
+Estimote Beacon is a super small device. It has a powerful 32-bit ARM® Cortex M0 CPU with 256kB flash memory, accelerometer, temperature sensor and most importantly – a 2.4 GHz Bluetooth 4.0 Smart (also known as BLE or Bluetooth low energy) bidirectional radio.
 
 You can think of the beacon as a small lighthouse tower that's installed in a fixed location and broadcasts its presence to all the ships (smartphones) around. They could be as close as 2 inches and as far as 230 feet (approx. 70 metres) away.
 
@@ -34,41 +34,47 @@ Although the object is in the global scope, it is not available until after the 
 
 ## Installation
 
-Once you have your estimote beacons in place and configured you can install the SDK in the folloiwng way:
+Once you have your Estimote beacons in place and configured, you can install the plugin in the folloiwng way:
 
     cordova plugin add plugin_url
 
 ## Methods
 
-- estimote.startListening
-- estimote.stopListening
+- estimote.startRanging
+- estimote.stopRanging
 
 
-# estimote.startListening
+# estimote.startRanging
 
 The method initalizes the native beacon manager for a region.
 
-    estimote.startListening("Telerik");
+    estimote.startRanging("Telerik");
 
-Once done I can subscribe to the document event as shown below and as I have devices nearby it will send me list and other information that will let me identify an estimote device and do various cool things with my app:
+Optionally you can pass in a UUID like "B9407F30-F5F8-466E-AFF9-25556B57FE6D" which is the default and is used to detect regular Estimote beacons.
+
+    estimote.startRanging({
+        region: "Telerik",
+        uuid: "B9407F30-F5F8-466E-AFF9-25556B57FE6D" // default
+    });
+
+Once done you can subscribe to the document event as shown below and as I have devices nearby it will send me list and other information that will let me identify an Estimote beacon and do various cool things with my app:
 
     document.addEventListener('beaconsReceived', this.onBeaconsReceived, false);
 
-    // Moving forward.
-    onBeconsReceived: function(e){
+    onBeaconsReceived: function(e){
         for(var index = 0; index< e.beacons.length; index++){
           // TODO: You app specific logic.
         }
     }
 
 
-# estimote.stopListening
+# estimote.stopRanging
 
 The method stops the tracking of any further beacons send by estimote devices.
 
 ## Example
 
-    estimote.stopListening();
+    estimote.stopRanging();
 
 
 ## Supported Platforms
@@ -78,4 +84,4 @@ The method stops the tracking of any further beacons send by estimote devices.
 
 ## Resources
 
-In order to get an understanding of how estimote beacon devices work, please refer to the [Getting Started Documetnation](http://estimote.com/api/getting-started/intro-to-beacons.html).
+In order to get an understanding of how the Estimote beacons work, please refer to the Estimote [Getting Started Documentation](http://estimote.com/api/getting-started/intro-to-beacons.html).
