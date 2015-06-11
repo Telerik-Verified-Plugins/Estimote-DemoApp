@@ -20,13 +20,14 @@
   "WP8PublisherID": "{8d9b6a5b-343b-447b-8f92-c5a9df281543}",
   "WP8ProductID": "{da061eb3-cd69-4753-8eaf-e8e4611c1d82}",
   "ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
-  "FrameworkVersion": "3.7.0",
+  "FrameworkVersion": "4.0.0",
   "CorePlugins": [
-    "org.apache.cordova.console",
-    "org.apache.cordova.device",
-    "org.apache.cordova.dialogs",
-    "org.apache.cordova.splashscreen",
-    "org.apache.cordova.statusbar"
+    "cordova-plugin-console",
+    "cordova-plugin-crosswalk-webview@1.2.0",
+    "cordova-plugin-device",
+    "cordova-plugin-dialogs",
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-statusbar"
   ],
   "AndroidPermissions": [
     "android.permission.INTERNET"
@@ -35,7 +36,7 @@
     "Portrait",
     "Landscape"
   ],
-  "AndroidHardwareAcceleration": "false",
+  "AndroidHardwareAcceleration": "true",
   "iOSStatusBarStyle": "Default",
   "WP8SupportedResolutions": [
     "ID_RESOLUTION_WVGA",
